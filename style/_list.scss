@@ -1,0 +1,547 @@
+$list-first-lineheight: 30px;
+$list-first-margin: 20px;
+
+@mixin img-circle {
+	background: $color-neutral;
+	color: $color-neutral;
+	height: 35px;	
+	width: 35px;
+	display: inline-block;
+	margin-right: 17px;
+}
+
+.basic-list {
+	min-width: $min-width;	
+	position: relative;
+	height: 100%;	
+	//max-height: 400px;
+	overflow-x: hidden;
+
+	.item-actions {
+		height: 100%;
+		
+		display: inline-block;
+		font-size: 19px;
+		line-height: 15px;	
+		vertical-align: top;
+		color: $color-neutral-soft;
+		padding-right: 7px;
+		margin-top: 10px;	
+		text-align: right;
+
+		a {
+			margin-right: 10px;	
+			display: inline-block;
+		}
+		
+		@media #{$media-tablet} {
+			width: 60px;
+		}
+
+		.edit {
+			color: $color-note;
+			cursor:pointer;
+		}
+
+		.del {
+			cursor:pointer;				
+			color: red;
+			width: 12px;
+			height: 15px;
+		}
+
+
+
+
+		.loc {
+			color: $color-action;
+			cursor: pointer;
+		}
+	}
+
+	.header {
+		height: $list-first-lineheight;
+		line-height: $list-first-lineheight;
+		color: $color-base;
+		font: $header-font;
+		display: block;
+
+		p {
+			font: $list-font-normal;
+			color: $color-base;
+		}	
+		.glyphicon-triangle-bottom {
+			color: $color-base;
+
+		}
+		a {
+			cursor: pointer;
+		}
+		.action-top-0, .action-top-1, .action-top-2 {
+			color: $color-base;
+			position: absolute;
+			top: 7px;
+			font-size: 17px;
+			cursor: pointer;
+		}	
+
+		.action-top-0 {
+			right: 35px;			
+		}
+		.action-top-1{
+			right: 60px;			
+		}
+		.action-top-2 {
+			right: 85px;			
+		}
+
+		.search-box {
+			height: 18px;
+			background-color: rgba(255,255,255,0.2);
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+			border-bottom-color: $color-base;
+			margin-left: 10px;
+			font-size: 12px;
+			width: 50px;
+			transition: 0.5s;
+
+			&.hidden {
+				width: 0px;
+			}
+		}
+
+		.search-box:focus {
+			width: 80px;
+			color: $color-note;
+			background-color: rgba(255,255,255,0.9);
+		}
+		
+	}
+
+
+	
+	.c {
+		vertical-align:top;			
+		margin: 0;	
+		margin-top: 10px;	
+		margin-bottom: 10px;	
+		display: inline-block;
+		font: $list-font-normal;
+		color: $color-neutral-soft;
+
+		@media #{$media-phone} {
+			width: 100%;
+		}
+		@media #{$media-tablet} {
+			width: 130px;
+		}
+
+		line-height: 20px;	
+
+		.checked, .ban, .exc {
+			font-size: 17px;
+		}
+		
+		.checked {
+			color: $color-selected;
+		}
+
+		.ban, .exc {
+			color: red;
+		}
+		
+		&:first-child {
+			padding-left: $list-first-margin;
+		}
+	}
+	
+	.row-list .c:first-child {
+		font: $header-font !important;
+		font-weight: bold !important;
+		color: darken($color-neutral, 5%) !important;	
+		line-height: 30px !important;	
+		//vertical-align: top;		
+	}
+	
+	.row-list {
+		.smalltitle {
+			display: none;
+			color: $color-neutral-soft;
+		}
+	}
+	.status {
+		color: #666;
+	}
+	.status.red {
+		color: red;
+	}
+	.status.green {
+		color: green;
+	}
+	.status.yellow {
+		color: yellow;
+	}	
+
+	.actions {
+		background-color: $color-base;
+	}
+
+	.btn-add {
+		background-image: url('/images/boton.svg');
+		background-repeat: none;
+		height: 40px;
+		width: 40px;
+		background-size: cover;
+		background-position: center;	
+		box-shadow: 2px 4px 3px #aaa;
+		border-radius:39px;
+		cursor: pointer;
+		position: fixed;
+		right: 80px;
+		bottom: 60px;
+		transition: 0.2s;
+		&:hover {
+			box-shadow: 4px 7px 5px #aaa;
+			border-radius:42px;			
+		}
+	}
+}
+
+
+.basic-list.main {
+	background: $color-base;
+	//max-height: 90vw;
+
+
+	.header {
+		background: $color-base;
+		height: 45px;
+		color: $color-note;
+		line-height: 40px;
+		margin-top: 10px;
+		margin-left: 4%;
+		margin-right: 4%;
+		
+		@media #{$media-tablet} {
+			p {
+				height: 30px;	
+				display: inline-block;
+				font: $header-font;
+				line-height: 30px;	
+				vertical-align: center;	
+				color: $color-note;			
+			}	
+		}
+
+		@media #{$media-phone} {
+			p {
+				display: none;
+			}
+		}
+		.search {
+			display: inline-block;
+			font-size: 18px;
+			font-weight: lighter;
+			color: $color-action;
+		}	
+	}	
+
+	.header-line {
+		margin-bottom: 5px;
+	}
+
+	hr {
+		margin-top: 0px;
+		margin-bottom: 30px;
+		color: $color-neutral;
+	}
+
+	.row-list {
+		//margin-left: 4%;
+		//margin-right: 4%;
+		//max-height: 80vh;
+		//overflow: auto;
+
+		.even, .odd {
+			padding-top: 15px;
+			//height: 60px;
+		}
+		.even:hover, .odd:hover {
+			background: rgba(200,200,200,0.2);
+		}
+
+		.c {
+			margin: 0;
+			height: 100%;
+			display: inline-block;
+			font: $list-font-normal;
+			line-height: 15px;	
+			vertical-align: top;
+			color: $color-neutral-soft;
+			padding-right: 10px;
+
+			.progress {
+				height: 15px;
+				margin-right: 20px;		
+				max-width: 90px;
+				.progress-bar {
+
+				}
+			}
+
+		}	
+
+
+
+		hr {
+			margin-top: 5px;
+			margin-bottom: 0px;
+			margin-left: $list-margin-left;
+		}
+
+		.c:first-child {
+			.img-circle {
+				@include img-circle;
+			}
+		
+			p {
+				display: inline-block;	
+				width: 50px;
+				font: $header-font;
+				color: $color-neutral;			
+				vertical-align: top;		
+			}			
+		}
+	}
+	
+	.actions {
+		position: absolute;
+		bottom: 50px;
+		right: 50px;
+		font-size: 6em;
+		color: $color-action;
+		text-shadow: 4px 7px 7px #777;
+		
+		img {
+			height: 50px;
+			width: 50px;
+		}
+		button {
+			background-color: transparent;
+			border: none;
+			height: 50px;
+			width: 50px;
+		}
+	}
+
+	@media #{$media-tablet} {
+		.row-list {
+			margin-left: 4%;
+			margin-right: 4%;
+		}
+	}
+}
+
+.basic-list.first {
+	background: $secondary-bkg;
+
+	hr {
+		display: none;
+	}
+
+	.header {
+		background: $color-note;
+	}	
+
+	.even {
+		background: $row-even-color;
+	}
+
+	.odd {
+		background: white;
+	}	
+
+	.row-list {
+		.c:first-child {
+			.img-circle {
+				@include img-circle;
+			}
+		}
+
+		.c {
+			font: $list-font-normal;
+			color: $color-neutral;
+			line-height: $list-first-lineheight;	
+		}
+
+
+
+	}	
+
+}
+
+.basic-list.master {
+	hr {
+		display: none;
+	}
+
+
+	.header {
+		background: $color-note;
+	}	
+
+	.row-list {
+		.c:first-child {
+			.img-circle {
+				@include img-circle;
+			}
+		
+			p {
+				display: inline-block;	
+				width: 50px;
+				font: $header-font;
+				color: $color-neutral;			
+				vertical-align: top;		
+			}			
+		}		
+	}
+	.even, .odd {
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		border-bottom-color: $secondary-bkg;		
+		background: $color-base;
+		transition: 0.2s;
+		&:hover, &:focus, &.item-selected {
+			border-left: 7px;
+			border-left-style: solid;
+			border-left-color: lighten($color-selected, 20%);
+		}
+		&.item-selected {
+			border-left-color: $color-selected;
+		}
+	}
+
+}
+
+.basic-list.details {
+	hr {
+		display: none;
+	}
+
+	.header {
+		background: $color-selected;
+	}	
+
+	.even, .odd {
+		background: $secondary-bkg;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		border-bottom-color: $color-neutral-soft;
+		
+	}
+
+}
+
+.list1, .list2 {
+	margin-top: 25px;
+}
+
+
+@media #{$media-phone} {
+	.basic-list {
+		height: 100%;
+
+		.header {
+			padding-left: 20px;
+			padding-right: 20px;
+			.c {
+				display: none;
+			}
+		}
+		.row-list {
+			.even, .odd {
+				padding-left: 15px;
+				padding-right: 15px;	
+				transition: .5s;
+
+			}
+
+			.show-actions.even, .show-actions.odd {
+				background-color: darken($secondary-bkg, 5%);
+			}
+			.c {
+				width: 100%;
+				line-height: 18px !important;
+				margin-bottom: 3px;
+				margin-top: 3px;
+				padding-left: 0px;
+				color: $color-neutral !important;
+			}
+	
+			.smalltitle {
+				display: inline-block;
+			}
+		}
+	}
+
+	.edit {
+		display: none;
+		opacity: 0;
+	}
+
+	.del {
+		display: none;
+		opacity: 0;
+	}	
+
+	.item-selected.show-actions {
+
+		.edit, .del {
+			display: inline-block;
+			position: absolute;
+			right: 70px;
+			top: 6px;
+			height: 15px;
+			width: 15px;
+			color: $color-base;
+			opacity: 1;
+			z-index: 100;
+		}
+
+		.edit {
+			right: 100px;
+		}
+
+	}
+
+	.list1, .list2 {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.main {
+		.item-selected.show-actions {
+			
+			.img-circle {
+			
+			}
+			.edit, .del {
+				color: $color-action;
+			}
+
+			.del {
+				top: 18px;				
+				right: 90px;
+
+
+			}
+
+			.edit {
+				top: 18px;				
+				right: 120px;
+			}
+		}
+
+	}
+}

@@ -1,0 +1,81 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import List from './../components/list';
+import Reference from './../components/reference';
+import {weekDays} from './../utils/weekDays';
+
+class PageAdminTableConfig extends Component {
+
+	createConfigData(tenantData) {
+		if (!tenantData) {
+			return null;
+		}
+
+		let rowList = tenantData.Providers.map( (p) => {
+
+			let psd = tenantData.getProviderSiteDefinitions(p.ID);
+
+			let uniqueShiftHours = psd.reduce((reduceValue, value, index, array) => {
+				return (reduceValue.includes(value.ShiftHourID) ? reduceValue : [...reduceValue, value.ShiftHourID]);
+			}, []);
+
+			let allShifts = uniqueShiftHours.reduce((previousValue, currentValue, index, array) => {
+				let sh = tenantData.getShiftHour(currentValue);
+
+				return (index === 0 ? `${sh.ShiftName}` : `${previousValue}-${sh.ShiftName}`);
+			}, 'Sin turno');
+
+			let uniqueSites = psd.reduce((reduce, provSiteDef, index, arr) => {
+				return (reduce.includes(provSiteDef.SiteID) ? reduce : [...reduce, provSiteDef.SiteID]);
+			}, []);
+
+			let allSites = uniqueSites.reduce((reduce, value, index, arr) => {
+				let site = tenantData.getSite(value);
+				return (index === 0 ? site.Name : `${reduce}, ${site.Name}`);
+			}, 'Sin mesa asignada');
+
+			let uniqueWeekDays = psd.reduce((reduce, psd, index, arr) => {
+				return (reduce.includes(psd.WeekDay) ? reduce : [...reduce, psd.WeekDay]);
+			}, []);
+
+			let allDays = uniqueWeekDays.reduce((reduce, day, index, arr) => {
+				let dayName = weekDays(day);
+				return (index === 0 ? dayName : `${reduce}, ${dayName}`);
+			}, 'Sin días asignados');
+
+			return [p.Name,allDays, allShifts, allSites, 'edit del'];
+		});
+
+		let tableDataGrid = {
+            itemname: 'status',
+            type: 'master',
+            actions: ['add-top', 'search', ],
+            collist: ['MOZO', 'DÍAS', 'TURNO', 'MESAS'],
+            coltypes: ['txt', 'txt', 'txt', 'txt', 'actions'],
+            rowlist: rowList
+        };
+
+        return tableDataGrid;
+
+	}
+
+	render() {
+		let configData = this.createConfigData(this.props.tenantData);
+
+		return (
+			<div className="main-area table-configuration">
+				<Reference />
+				<div className="table-container">
+					<p className="title">CONFIGURACIÓN DE MESAS</p>
+					<List data={configData} />
+				</div>
+			</div>			
+		);
+	}
+}
+
+function mapStateToProps(state) {
+	return { tenantData: state.tenantData };
+}
+
+export default connect(mapStateToProps, null)(PageAdminTableConfig);

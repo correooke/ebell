@@ -1,0 +1,135 @@
+.star-figure { 
+	fill:$color-note; 
+
+	&:hover {
+		fill:yellow;
+	}
+}
+
+
+.action-icon {
+	.circle {
+		fill:$color-note; 
+	
+	}
+
+	.figure {
+		fill:$color-base;
+		animation-duration: 1s;
+    	transform-origin: 0 0 0;
+	}
+
+	&:hover .circle, &.selected .circle {
+		fill:$color-selected;
+		
+	}
+
+	&.selected .figure {
+		animation-name: example;
+	}
+
+	@keyframes example {
+	    0%   {
+	    	transform: rotate(2deg) scale(1.1, 1.1);
+	    }
+	    25%  {
+	    	transform: rotate(-2deg);
+	    }
+	    50%  {
+	    	transform: rotate(2deg);
+	    }
+	    100% {
+	    }
+	}
+
+}
+
+
+form {
+	width: 100%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+fieldset {
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}	
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+	fieldset {
+		padding-top: 10px;
+
+		input + label {
+			pointer-events: none;
+			color: $color-base;
+			position: relative;
+			transform-origin: center left;
+			transition: color 0.3s, transform 0.5s;
+			transform: translateY(-20px);
+		}
+		
+		input:focus + label, input:hover + label, input:valid + label {
+			color: darken($color-base,10%);
+			transform: translateY(-35px) scale(0.8);	
+		}
+		input {
+			font: $font-main-data;
+			height: 25px;
+			width: 100%;
+			color: $color-base;
+			background: transparent;
+			border: none;
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+			border-bottom-color: $color-base;
+			transition: border-bottom-width 0.2s;
+			&:focus{
+				border-bottom-width: 2px;
+				outline: none;
+			}
+		}
+		
+	}
+
+}
+
+.std-background
+{
+  background : -moz-linear-gradient(24.29% 32.03% -48.77deg,rgba(243, 146, 0, 1) 0%,rgba(104, 60, 17, 1) 100%);
+  background : -webkit-linear-gradient(-48.77deg, rgba(243, 146, 0, 1) 0%, rgba(104, 60, 17, 1) 100%);
+  background : -webkit-gradient(linear,24.29% 32.03% ,104.49% 88.08% ,color-stop(0,rgba(243, 146, 0, 1) ),color-stop(1,rgba(104, 60, 17, 1) ));
+  background : -o-linear-gradient(-48.77deg, rgba(243, 146, 0, 1) 0%, rgba(104, 60, 17, 1) 100%);
+  background : -ms-linear-gradient(-48.77deg, rgba(243, 146, 0, 1) 0%, rgba(104, 60, 17, 1) 100%);
+  background : linear-gradient(138.77deg, rgba(243, 146, 0, 1) 0%, rgba(104, 60, 17, 1) 100%);
+}
+
+
+.logo {
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+	.figure {
+		fill: white;
+	}
+
+	.shadow {
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

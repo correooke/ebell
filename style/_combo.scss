@@ -1,0 +1,38 @@
+
+fieldset.combo {
+	select + label {
+		pointer-events: none;
+		position: relative;
+		transform-origin: center left;
+		transition: color 0.3s, transform 0.5s;
+		transform: translateY(-35px);			
+		color: $color-note;
+	}
+
+	/*Combo */
+	select {
+		margin-top: 10px;
+		background-color: transparent;
+		width: 100%;
+		
+		padding: 3px 0 0 0;
+		font: $list-font-normal;
+		color: $color-neutral;
+		border: none;
+		border-bottom: 1px solid $color-note;
+	}
+
+	/* Remove focus */
+	select:focus {
+		outline: none;
+	}
+	
+	&.map {
+		width: 100%;
+
+		img {
+			width: 100%;
+		}
+	}
+
+}

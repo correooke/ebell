@@ -1,0 +1,8 @@
+/*file icons
+language babel
+linter
+linter eslint
+minimap
+open recent
+pigment
+autocomplete*/

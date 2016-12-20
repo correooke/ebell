@@ -3,20 +3,30 @@ var path = require('path');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 //var pathToSassLoader = path.resolve(__dirname, '../../index.js');
-console.log("PATH USADO: " + path.join(__dirname, 'src'));
+console.log("PATH" + path.join(__dirname, 'src'));
 module.exports = {
-  //devtool: 'source-map',
+  devtool: 'source-map',
   //devtool: 'cheap-module-eval-source-map',
-  devtool: 'eval',
+  //devtool: 'eval',
   entry: [
-  'webpack-dev-server/client?http://0.0.0.0:18080/', // WebpackDevServer host and port
+  'webpack-dev-server/client?http://0.0.0.0:8080/', // WebpackDevServer host and port
   'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './src/index.js'
   ],
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-/*    new webpack.NoErrorsPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:8080' }),*/
+    new webpack.NoErrorsPlugin(),
+    new OpenBrowserPlugin({ url: 'http://0.0.0.0:8080' }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false,
+      },
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
   ],
   output: {
     path: __dirname,
@@ -27,7 +37,7 @@ module.exports = {
     loaders: [
     {
         test: /\.scss$/,
-        loaders: ["react-hot", "style", "css", "sass"]
+        loaders: ["style", "css", "sass"]
     },
     {
         test: /\.js$/,

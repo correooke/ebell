@@ -1,0 +1,189 @@
+//$background-color: $background-color;
+$background-color: white;
+$brown: #432918;
+$anchos: 28vw;
+body {
+    margin: 0;
+}
+
+
+
+.container-all {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: $brown;
+    /*display: flex; ESTO ESTA PARA LA PANTALLA DEL CLIENTE, PERO HACE QUE NO FUNCIONE 
+    PARA LA PANTALLA DEL ADMINISTRADOR
+    flex-direction: row;*/
+}
+.base-page-customer {
+    flex-basis: 100vw;
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: 100vh;
+    width: 100vw;
+    min-height: 400px;
+    min-width: 100vw;
+    background: $background-color;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;   
+}
+
+.page-customer {
+    @extend .base-page-customer;
+    
+    .logo-color {
+        flex-basis: 20%;
+        flex-grow: 1;
+        flex-shrink: 2;        
+    }
+    .element-centered {
+        margin: 0 auto;
+        width: ($anchos * 3);
+        max-width: 60vh;
+    }
+
+    .middle {
+        flex-grow: 1;
+        flex-shrink: 2;
+        flex-basis: 40%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .bottom {
+        align-self: flex-end;
+        flex-basis: 50%;
+        flex-grow: 2;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        .footer {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+            flex-basis: 100%;
+        }
+    }
+    .info {
+        margin: 5px;
+        padding: 10px;
+        background: rgba(200, 200, 200, 0.9);
+    }
+    .message {
+        @extend .element-centered;
+        height: 0;
+        pointer-events: none;
+        align-self: flex-end;
+        padding-right: 1%;
+        padding-left: 1%;
+        opacity: 0;
+        transition: .4s;
+        position: relative;
+        align-items: center;
+        &.visible {
+            display: block;
+            height: 50%;
+            opacity: 1;
+        }
+        img {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+        }
+        .message-text {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    .actions-container {
+        .actions,
+        .labels {
+            @extend .element-centered;
+            display: block;
+            height: $anchos;
+            max-height: 20vh;
+            .action-icon,
+            label {
+                width: 33.33%;
+                display: inline-block;
+            }
+            .action-icon {
+                max-height: 20vh;
+                padding-right: (33.33% * 0.1);
+                padding-left: (33.33% * 0.1);
+                padding-top: (33.33% * 0.15);
+                padding-bottom: (33.33% * 0.05);
+            }
+            label {
+                text-align: center;
+                line-height: 15px;
+                top: -2px;
+                position: relative;
+                font-size: 12px;
+            }
+        }
+        .labels {
+            height: 15px;
+        }
+    }
+    .score {
+        flex-basis: 30%;
+        border-bottom-width: 2px;
+        border-top-width: 2px;
+        border-bottom-style: solid;
+        border-top-style: solid;
+        border-color: $color-neutral;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        height: 50px;
+        .score-container {
+            @extend .element-centered;
+            padding-right: 1%;
+            padding-left: 1%;
+        }
+
+        .score-label {
+            display: inline-block;
+            margin: 0 auto;
+            margin-top: 10px;
+            font-size: 2em;
+            width: 50%;
+            text-align: center;
+            vertical-align: center;
+        }
+        .rating {
+            float: right;
+            display: inline-block;
+            width: 50%;
+            .star {
+                display: inline-block;
+                width: 13%;
+                margin: 2px;
+                float: right;
+            }
+        }
+    }
+    .download-app {
+        flex-grow: 0;
+        background: $color-neutral;
+        color: $color-base;
+        p {
+            font: 16px Helvetica, sans-serif;
+            text-align: center;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}

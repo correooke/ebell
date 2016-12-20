@@ -1,0 +1,16 @@
+
+
+
+.download-app {
+	flex-grow: 0;
+	background: $color-neutral;
+	color: $color-base;
+	p {
+		font: 16px Helvetica, sans-serif;
+		text-align: center;
+		margin-left: 15%;
+		margin-right: 15%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}

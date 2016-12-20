@@ -1,0 +1,44 @@
+
+.workspace-menu {
+	$workspace-menu-color: #999;
+
+	position: absolute;
+	right: 0;
+
+	i {
+		font-size: 20px;
+		width: $reference-height;
+		height: $reference-height;
+		text-align: center;
+		line-height: $reference-height;
+		color: white;
+		cursor: pointer;
+		opacity: 0.5;
+		&:hover {
+			background: lighten($workspace-menu-color, 10%);
+		}
+	}
+
+	.home {
+		background: $workspace-menu-color;
+	}
+	
+	.statistics {
+		background: $workspace-menu-color;
+	}
+
+	.config {
+		background: $workspace-menu-color;
+	}
+	
+	.selected {
+		color: $workspace-menu-color;
+		background: white;
+	}
+
+	.current-menu {
+		display: inline-block;
+		padding-right: 10px;
+		padding-left: 10px;
+	}
+}

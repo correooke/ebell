@@ -1,0 +1,35 @@
+
+.table-configuration {
+
+	.basic-list.master {
+
+		@media #{$media-tablet} {
+			.c:nth-child(1) {
+				width: 30%;
+			}
+
+			.c:nth-child(2) {
+				width: 15%;
+			}
+
+			.c:nth-child(3) {
+				width: 25%;
+			}
+
+			.c:nth-child(4) {
+				width: 20%;
+				text-align: left;
+			}
+
+			.item-actions {
+				width: 10%;
+			}
+		}
+	}	
+
+	.combo {
+		width: 150px;
+		display: inline-block;
+		margin-left: 25px;
+	}
+}

@@ -1,0 +1,113 @@
+//@import url("../node_modules/c3/c3.css");
+
+$media-smallphone: "only screen and (max-width : 300px)";
+$media-smallphone2: "only screen and (max-width : 400px)";
+$media-phone: "only screen and (max-width : 768px)";
+$media-tablet: "only screen and (min-width : 768px)";
+$media-desktop: "only screen and (min-width : 992px)";
+
+$font-stack:    Helvetica, sans-serif;
+$nav-font: bold 10px Helvetica;
+$header-font: bold 13px Helvetica;
+$font-main-data: 16px Helvetica;
+$list-font-normal: 14px Helvetica;
+$list-font-plus: bold 11px Helvetica;
+
+/* colors */ 
+$color-base: white;
+
+$color-note: #F29100; //#0978bd;
+$color-selected: #432918;
+$color-neutral: #3c3c3b;
+$color-neutral-soft: #999999;
+$color-action: #f7a812;
+$color-annotation: #a3195b;
+//#3c
+$color-bkg-soft: #EEE; 
+
+$row-even-color: #ededed;
+$secondary-bkg: #666;
+
+$min-width: 320px;
+
+$list-margin-left: 50px;
+$reference-height: 40px;
+
+$padding-std: 30px;
+$color-ticket: red;
+$color-call: green;
+$color-none: #AAA;
+
+$main-header-height: 0px;
+
+.full-size {
+	height: 100vh;
+	width: 100vw;
+}
+
+@import 'controls';
+@import 'list';
+@import 'combo';
+@import 'download-app';
+@import 'notifications';
+@import 'header';
+@import 'workspace';
+@import 'table-status';
+@import 'table-configuration';
+@import 'page-customer';
+@import 'page-customer-select-table';
+@import 'page-login';
+@import 'workspace-menu';
+@import 'logo-color';
+
+body {
+  font: 100% $font-stack;
+  background: $color-base;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+	/* Styles, not important */
+	*, *:before, *:after {
+		box-sizing: border-box;
+	}
+
+p, h1, h2, h3, h4, label, span {
+	user-select: none;
+	cursor: default;
+}
+
+.no-gutter {
+    padding-right:0;
+    padding-left:0;
+}	
+
+
+.page-admin {
+	background: white;
+
+	.main-container {
+		@media #{$media-tablet} {
+			height: 100vh;
+		}
+		overflow: auto;
+	}
+
+	.workspace-container {
+		width: 100%;
+
+		height: calc(100% - #{$main-header-height});
+	}
+
+	.side-container {
+		height: 100%;
+	}
+}
+
+
+
+
+
+
+

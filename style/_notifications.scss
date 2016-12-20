@@ -1,0 +1,102 @@
+$message-size: 80px;
+$message-margin: 7px;
+$green: rgb(149,193,31);
+$red: rgb(227,6,19);
+
+.notifications {
+	background: $color-selected;
+	color: $color-base;
+
+	@media #{$media-tablet} {
+		height: 100vh;
+	}
+	
+	padding-left: 0;
+	padding-right: 0;
+
+	.title {
+		height: 70px;
+		width: 100%;
+		padding-top: 30px;
+
+		margin: 0;
+
+		p {
+			font-weight: bold;
+			font-size: 20px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.divider {
+			height: 2px;
+			width: 100%;
+			background: $color-base;
+		}
+
+		.notification-area {
+			display: flex;
+			justify-content: center;
+			flex-flow: horizontal;
+			flex-wrap: wrap;
+
+			padding: 15px 15px 15px 15px;
+			
+			.message {
+				display: inline-block;
+				width: $message-size;
+				height: $message-size;
+				margin: $message-margin;
+				border-radius: 2px;
+				cursor: pointer;
+				
+				p {
+					cursor: pointer;
+				}
+				
+				&.call {
+					background: $green;
+
+					&:hover {
+						background: lighten($green, 10%);
+					}
+				}
+
+				&.ticket {
+					background: $red;
+					
+					&:hover {
+						background: lighten($red, 25%);
+					}					
+				}
+				
+				.table {
+					display: inline-block;
+					font-size: 23px;
+					line-height: 50px;
+					margin: 0;
+					width: 100%;
+					vertical-align: middle;
+					text-align: center;
+				}
+
+				.type {
+					font-size: 10px;
+					width: 100%;
+					text-align: center;
+					margin-top: 4px;
+				}
+
+			}
+
+			.popover-title {
+				color: #333;
+			}
+		}
+	}
+
+}
+
+.notification-extra-info {
+	padding: 10px;
+}

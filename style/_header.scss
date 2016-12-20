@@ -1,0 +1,46 @@
+$main-header-height: 165px;
+
+.main-header {
+	@extend .std-background;
+	display: flex;
+	align-items: flex-end;
+	width: 100%;
+	box-sizing: border-box;
+	height: $main-header-height;
+	color: $color-base;
+	font-size: 12px;
+	position: relative;
+	align-content: space-between;
+	padding: 15px 10px 25px 35px;
+
+	@media #{$media-phone} {
+		flex-direction: column;
+		align-items:flex-start;
+	}
+
+	.part {
+		margin: 0;
+		flex-basis: 33%;
+		position: relative;
+	}
+
+	.logo {
+		min-width: 100px; 
+		max-width: 300px;
+	}
+
+	.datetime {
+		margin: 0 auto;
+		display: block;
+		width: 160px;
+		height: 100%;
+		text-align: center;
+	}
+
+	.shift {
+		margin: 0 auto;
+		display: block;
+		width: 140px;
+		text-align: center;
+	}
+}

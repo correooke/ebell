@@ -1,0 +1,27 @@
+NARANJA:
+{
+  background : #F39200;
+  background : rgba(243, 146, 0, 1);
+}
+
+MARRON:
+
+{
+  background : #432918;
+  background : rgba(67, 41, 24, 1);
+}
+
+
+DEGRADE:
+
+.XMLID_891_
+{
+  background : -moz-linear-gradient(24.29% 32.03% -48.77deg,rgba(243, 146, 0, 1) 0%,rgba(104, 60, 17, 1) 100%);
+  background : -webkit-linear-gradient(-48.77deg, rgba(243, 146, 0, 1) 0%, rgba(104, 60, 17, 1) 100%);
+  background : -webkit-gradient(linear,24.29% 32.03% ,104.49% 88.08% ,color-stop(0,rgba(243, 146, 0, 1) ),color-stop(1,rgba(104, 60, 17, 1) ));
+  background : -o-linear-gradient(-48.77deg, rgba(243, 146, 0, 1) 0%, rgba(104, 60, 17, 1) 100%);
+  background : -ms-linear-gradient(-48.77deg, rgba(243, 146, 0, 1) 0%, rgba(104, 60, 17, 1) 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#F39200', endColorstr='#683C11' ,GradientType=0)";
+  background : linear-gradient(138.77deg, rgba(243, 146, 0, 1) 0%, rgba(104, 60, 17, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F39200',endColorstr='#683C11' , GradientType=1);
+}

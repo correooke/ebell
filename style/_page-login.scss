@@ -1,0 +1,87 @@
+.login {
+	@extend .std-background;
+	height: 100vh;
+	width: 100vw;
+	
+	display: flex;
+	align-items:center;
+	align-content:center;
+	justify-content: center;
+
+	.login-container {
+		min-width: 250px;
+		align-self: center;
+
+		form {
+			margin-top: 40px;
+			margin-bottom: 20px;
+		}
+	}
+
+	.btn {
+		width: 100%;
+		height: 40px;
+		font-weight: bold;
+  		background : rgba(255, 255, 255, 0.9);
+		border-style: none;
+		color: $color-note;
+	}
+
+	.register {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		width: 100%;
+		text-align: center;
+		color: $color-base;
+	}
+
+	.login-form {
+		animation-name: ani;
+		animation-duration: 1s;
+		animation-delay: 1s;
+		animation-timing-function: ease-out;
+		animation-fill-mode: forwards;
+		opacity: 0;
+		height: 0;
+	}
+
+	@keyframes ani {
+		0% {
+			height: 0;
+		}
+		25% {
+			height: 200px;
+			transform: scale(0.1,0.1);
+			opacity: 0;
+		}
+		100% {
+			transform: scale(1,1);
+			opacity: 1;
+			height: 100%;
+		}
+	}
+
+	.bell {
+		fill:$color-base;
+		animation-duration: 1.2s;
+    	transform-origin: 0 0 0;
+		animation-name: ringmybell;
+		animation-delay: 0.5s;
+	}
+
+	@keyframes ringmybell {
+	    0%   {
+	    	transform: rotate(2deg) scale(1.1, 1.1);
+	    }
+	    25%  {
+	    	transform: rotate(-2deg);
+	    }
+	    50%  {
+	    	transform: rotate(2deg);
+	    }
+	    100% {
+	    }
+	}
+
+
+}

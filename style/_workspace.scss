@@ -1,0 +1,67 @@
+.workspace {
+	background: $color-base;
+	width: 100%;
+	height: 100%;
+
+	.loading-workspace {
+		width: 200px;
+		display: block;
+		margin: auto;
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.reference {
+		height: $reference-height;
+		width: 100%;
+		padding: 5px $padding-std 5px $padding-std;
+		background: $color-bkg-soft;
+		border-bottom-width: 5px;
+		border-bottom-style: solid;
+		border-bottom-color: $color-note;
+		
+		i, p {
+			display: inline-block;
+			vertical-align: middle;
+			line-height: 30px;
+		}
+
+		i {
+			margin: 0 5px 0 0;
+			font-size: 20px;
+		}
+
+		p {
+			font-weight: bold;
+			margin: 0 50px 0 0;
+		}
+		
+		.ticket {
+			color: $color-ticket;
+		}
+
+		.call {
+			color: $color-call;
+		}
+
+		.none {
+			color: $color-none;
+		}
+	}
+
+
+	.table-container {
+		box-sizing: border-box;
+		height: calc(100% - 40px);
+		padding: 40px $padding-std $padding-std $padding-std;
+
+		.title {
+			color: $color-selected;
+			font-weight: bold;
+		}
+	}
+			
+}
+
+
