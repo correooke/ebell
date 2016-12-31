@@ -1,40 +1,44 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Rating from './rating';
 
 
-const ListColText = (props) => {
-	let mysmalltitle= () => {
-				return '';
-			};
+const ListColText = ({value, withSmallTitle, columnName}) => {
 
-	if (props.data.smalltitle != null) {
-
-		if (props.data.smalltitle[colKey] === true) {
-			mysmalltitle = () => {
-				return (
-					<span key={colKey} className='smalltitle'>{props.data.collist[colKey] + ': '}</span>
-					);
-			}
-		}
-
+	let mysmalltitle = () => {
+		return (withSmallTitle ? <span className='smalltitle'>{columnName + ': '}</span> : '');
 	}
 
-	return (<p className={'c'}>{mysmalltitle()}{props.value}</p> );
+	return (<p className={'c'}>{mysmalltitle()}{value}</p> );
 	
 }
 
-const ListColImage = (props) => {
+ListColText.propTypes = {
+	value: PropTypes.string.isRequired, 
+	withSmallTitle: PropTypes.bool, 
+	columnName: PropTypes.string
+};
+
+ListColText.defaultTypes = {
+	withSmallTitle: false, 
+	columnName: ''
+};
+
+
+const ListColImage = ({value, image}) => {
 	return (
-		<div className={'c c' + props.colKey}>
-			<a href={props.data.url}>
-				<img src='\images\1.jpg' className='img-circle'/><p>{props.value}</p> 
+		<div className={'c'}>
+			<a href=''>
+				<img src={image} className='img-circle'/><p>{value}</p> 
 			</a>
 		</div>);
 }
 
-const ListColProgressBar = (props) => {
-	let { value } = props;
+ListColImage.propTypes = {
+	value: PropTypes.string.isRequired,
+	image: PropTypes.string.isRequired
+};
 
+const ListColProgressBar = ({value}) => {
 	return (
 		<div className={'c'}>
 			<div className='progress'>
@@ -96,15 +100,15 @@ const ListColActions = (props) => {
 }
 
 const ListColCheckStatus = (props) => {
-	let {value} = props;
-	if (value === 'exc') {
+	let {item} = props;
+	if (item === 'exc') {
 		return (
 			<div className='c'>
 				<i className="fa fa-exclamation exc" aria-hidden="true"></i>
 			</div>
 			);
 
-	} if (value !== 'checked') {
+	} if (item !== 'checked') {
 		return (
 			<div className='c'>
 				<i className="fa fa-ban ban" aria-hidden="true"></i>
@@ -121,37 +125,40 @@ const ListColCheckStatus = (props) => {
 	}		
 }
 
-const ListColUnknow = (props) => {
-	return (<p key={colKey} className={'c c' + colKey}>??{value}</p>);
+const ListColUnknow = ({value}) => {
+	return (<p className={'c'}>??{value}</p>);
 }
 
 const ListRow = (props) => {
 	let colKey = 0;
-
-	const rowValues = props.data.values.map(
+	const rowValues = props.item.map(
 			(value) => {
-				let colKey = props.data.values.indexOf(value);
+				let colKey = props.item.indexOf(value);
 				let colType = props.data.coltypes[colKey];
+				let colCreator;
 
 				if (colType === 'txt'){
-					return <ListColText key={colKey} value={value} data={props.data} />;
+					colCreator = (colKey, value, withSmallTitle, columnName) => <ListColText key={colKey} value={value} withSmallTitle={withSmallTitle} columnName={columnName} />;
 				} else if (colType === 'img'){
-					return <ListColImage key={colKey} value={value} data={props.data} />;
+					colCreator = (colKey, value, withSmallTitle, columnName) => <ListColImage key={colKey} value={value} image={'\\images\\1.jpg'} />;
 				} else if (colType === 'progress'){
-					return <ListColProgressBar key={colKey} value={value} />;
+					colCreator = (colKey, value, withSmallTitle, columnName) => <ListColProgressBar key={colKey} value={value} />;
 				} else if (colType === 'stars'){
-					return <ListColStars key={colKey} value={value} />;
+					colCreator = (colKey, value, withSmallTitle, columnName) => <ListColStars key={colKey} value={value} />;
 				} else if (colType === 'status'){
-					return <ListColDotStatus key={colKey} value={value} />;
+					colCreator = (colKey, value, withSmallTitle, columnName) => <ListColDotStatus key={colKey} value={value} />;
 				} else if (colType === 'check'){
-					return <ListColCheckStatus key={colKey} value={value} />;
+					colCreator = (colKey, value, withSmallTitle, columnName) => <ListColCheckStatus key={colKey} value={value} />;
 				} else if (colType === 'actions'){
-					return <ListColActions key={colKey} value={value} dataType={props.data.type} />;
+					colCreator = (colKey, value, withSmallTitle, columnName) => <ListColActions key={colKey} value={value} dataType={props.data.type} />;
 				} else {
-					return <ListColUnknow />;
+					colCreator = (colKey, value, withSmallTitle, columnName) => <ListColUnknow value={value} />;
 				}
+				
+				let withSmallTitle = props.data.smalltitle != null && props.data.smalltitle[colKey] === true;
+				let columnName = props.data.collist[colKey];
 
-				colKey++;
+				return colCreator(colKey, value, withSmallTitle, columnName);
 			}
 		);
 

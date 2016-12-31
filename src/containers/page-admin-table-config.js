@@ -4,7 +4,16 @@ import List from './../components/list';
 import Reference from './../components/reference';
 import {weekDays} from './../utils/weekDays';
 
+import TableConfigurationDialog from './../components/table-configuration-dialog';
+
+
 class PageAdminTableConfig extends Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {open: false};
+	}
 
 	createConfigData(tenantData) {
 		if (!tenantData) {
@@ -59,16 +68,40 @@ class PageAdminTableConfig extends Component {
 
 	}
 
+	onListRowClick(row) {
+		this.setState({provider: this.props.tenantData.Providers[row], open: true});
+	}
+
+	handleDialogClose() {
+		this.setState({open: false});
+		debugger;
+	}
+
+	handleDialogAccept() {
+		this.setState({open: false});
+	}
+
 	render() {
 		let configData = this.createConfigData(this.props.tenantData);
+		let {provider, open} = this.state;
 
 		return (
 			<div className="main-area table-configuration">
 				<Reference />
 				<div className="table-container">
 					<p className="title">CONFIGURACIÓN DE MESAS</p>
-					<List data={configData} />
+					<List 
+						withAddItem={true} 
+						withSearch={true} 
+						data={configData} 
+						onRowClick={this.onListRowClick.bind(this)} />
 				</div>
+				{(provider ? 
+					<TableConfigurationDialog 
+						provider={provider} 
+						open={open} 
+						handleDialogCancel={this.handleDialogClose.bind(this)} 
+						handleDialogAccept={this.handleDialogAccept.bind(this)} /> : '')}			
 			</div>			
 		);
 	}

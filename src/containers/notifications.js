@@ -23,7 +23,6 @@ class Notifications extends Component {
 		if (this.props.autoupdate) {
 			this.timer = TimerMixin.setInterval(() => {
 				this.DoFireGetActiveEvents();
-				console.log("fireGetActiveEvents");
 			}, 2000);
 		}
 	}
@@ -61,7 +60,6 @@ class Notifications extends Component {
 	    let ignore = events && this.previous_length ? events.length <= this.previous_length : true;
 		this.previous_length = events ? events.length : 0;
 
-	    console.log(`Ignore: ${ignore}`);
 		let msgs = (!events || !this.props.tenantData) ? null : events.map( (e) => {
 			let site = this.props.tenantData.getSite(e.SiteID);
 			let provider = this.props.tenantData.getProvider(e.ProviderID);
@@ -97,13 +95,13 @@ class Notifications extends Component {
 				</div>
         <Notification
           ignore={ignore}
-          notSupported={() => { console.log("notSupported"); }}
-          onPermissionGranted={() => { console.log("onPermissionGranted"); }}
-          onPermissionDenied={() => { console.log("onPermissionDenied"); }}
-          onShow={() => { console.log("onShow"); }}
-          onClick={() => { console.log("onClick"); }}
-          onClose={() => { console.log("onClose"); }}
-          onError={() => { console.log("onError"); }}
+          notSupported={() => { console.log("Notifications: event notSupported"); }}
+          onPermissionGranted={() => { console.log("Notifications: event onPermissionGranted"); }}
+          onPermissionDenied={() => { console.log("Notifications: event onPermissionDenied"); }}
+          onShow={() => { console.log("Notifications: event onShow"); }}
+          onClick={() => { console.log("Notifications: event onClick"); }}
+          onClose={() => { console.log("Notifications: event onClose"); }}
+          onError={() => { console.log("Notifications: event onError"); }}
           timeout={9000}
           title="EBell"
           options={options}

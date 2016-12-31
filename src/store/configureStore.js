@@ -20,7 +20,7 @@ export default function configureStore(initialState) {
 
   const addLoggingToDispatch = (store) => {
     const rawDispatch = store.dispatch;
-    if (!console.groud)  {
+    if (!console.group)  {
       return rawDispatch;
     }
 

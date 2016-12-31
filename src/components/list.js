@@ -1,6 +1,40 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ListRow from './listrow';
 
+const SearchTop = (props) => {
+	return (
+		<a className={'action-top search'}>
+			<i className="fa fa-search search-control" aria-hidden="true"></i>
+			<input className="search-box hidden" type="text" />
+		</a>
+	);	
+}
+
+const AddItem = (props) => {
+	return (
+		<a className={'action-top add-item'} >
+			<i className="fa fa-plus" aria-hidden="true"></i>
+		</a>
+		);
+};
+
+const ColumnHeader = ({columnName}) => {
+	return (
+			<p className='c'>{columnName}  <a href=""><i className='glyphicon glyphicon-triangle-bottom' /></a></p>
+		);
+};
+
+const ListHeader = ({columnList}) => {
+	let list = columnList.map(
+			(col) => {
+				return (<ColumnHeader key={col} columnName={col} />)
+			});
+	return (
+		<div>
+			{list}
+		</div>
+	);
+}
 
 const List = (props) => {
 	let key = 0;
@@ -8,87 +42,23 @@ const List = (props) => {
 		return (<p></p>);
 	}
 
-	const getClassByRow = (key) => {
-		return (key % 2 === 0 ? 'even' : 'odd');
-	};
-
 	const rowlist = props.data.rowlist ? (props.data.rowlist.map(
 		(item) => { 
-			let dataListRow = {
-				coltypes: props.data.coltypes,
-				type: props.data.type, 
-				values: item,
-				url: props.data.url,
-				collist: props.data.collist,
-				smalltitle: props.data.smalltitle,
-			};
+			let rowKey = key;
+
 			return (
-				<li key={key++} className={getClassByRow(key)}> 
-					<ListRow data={dataListRow} />
+				<li onClick={() => props.onRowClick(rowKey)} key={key++} className={(key % 2 === 0 ? 'even' : 'odd')}> 
+					<ListRow data={props.data} item={item} />
 				</li>); 
 		} )) : <p></p>;
-
-	const collist = props.data.collist.map(
-		(col) => {
-			return (<p key={col} className='c'>{col}  <a href=""><i className='glyphicon glyphicon-triangle-bottom' /></a></p>)
-		});
-
-	const actions = () => {
-		if (props.data.actions.indexOf('add') >= 0) {
- 			return (
- 				<div className="actions">
- 					<a data-toggle="modal" data-target={"#modal" + props.data.type}>
- 						<div className="btn-add"></div>
- 					</a>
- 				</div>);
-		} else {
-			return (<p></p>);
-		}
-	};
-/*<img className="btn" src="\images\boton.png"/>*/
-	const actionsMap = () => {
-		let actionTopIndex = props.data.actions.indexOf('map');
-		if (actionTopIndex >= 0) {			
- 			return (
-					<a className={'action-top-' + actionTopIndex + " map"} data-toggle="modal" data-target="#modalmap">
-						<i className="fa fa-map-marker" aria-hidden="true"></i>
-					</a>
- 				);
-		} 
-	};
-
-	const actionsTop = () => {
-
-		let actionTopIndex = props.data.actions.indexOf('add-top');
-		if (actionTopIndex >= 0) {			
- 			return (
-					<a className={'action-top-' + actionTopIndex + " add-item"} data-toggle="modal" data-target={"#modal" + props.data.type}>
-						<i className="fa fa-plus" aria-hidden="true"></i>
-					</a>
- 				);
-		} 
-	};
-
-	const searchTop = () => {
-		let actionTopIndex = props.data.actions.indexOf('search');
-		if (actionTopIndex >= 0) {
- 			return (
-					<a className={'action-top-' + actionTopIndex + " search"}>
-						<i className="fa fa-search search-control" aria-hidden="true"></i>
-						<input className="search-box hidden" type="text" />
-					</a>
- 				);	
- 		}	
-	}
 
 	return (
 		<section className={"basic-list " + props.data.type}>
 			<div className="header">
-				{collist}
+				<ListHeader columnList={props.data.collist} />
 				
-				{actionsTop()}
-				{searchTop()}	
-				{actionsMap()}			
+				{(props.withAddItem ? <AddItem /> : '')}
+				{(props.withSearch ? <SearchTop /> : '')}	
 			</div>
 			<hr className="header-line"/>
 			<div className="row-list">
@@ -96,30 +66,19 @@ const List = (props) => {
 					{rowlist}
 				</ul>
 			</div>
-			{actions()}
-
-			<div className="modal fade modal-delete" id={"deleteModal" + props.data.type} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  <div className="modal-dialog" role="document">
-			    <div className="modal-content">
-			      <div className="modal-header">
-			        <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 className="modal-title" id="myModalLabel">EBell</h4>
-			      </div>
-			      <div className="modal-body">
-			      	<div className="message">
-			      		<i className="fa fa-exclamation-triangle" aria-hidden="true"></i>
-			      		<strong>Sure you want to delete the {props.data.itemname}?</strong>
-			      	</div>
-			      </div>
-			      <div className="modal-footer">
-			        <button type="button" className="btn">ACCEPT</button>
-			        <button type="button" className="btn" data-dismiss="modal">CANCEL</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>			
 		</section>
 		);
 }
 
 export default List;
+
+List.propTypes = {
+	onRowClick: PropTypes.func, 
+	withAddItem: PropTypes.bool, 
+	withSearch: PropTypes.bool
+};
+
+List.defaultTypes = {
+	withAddItem: false, 
+	withSearch: false
+};
