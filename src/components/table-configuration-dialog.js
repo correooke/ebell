@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import CheckBox from 'material-ui/CheckBox'
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import TableWaiterAssign from './table-waiter-assign';
 
 class TableConfigurationDialog extends Component {
 
@@ -60,6 +61,10 @@ class TableConfigurationDialog extends Component {
     //this.setState({weekDays: [...this.state.weekDays, obj] });
   }
 
+  onTableClick = () => {
+    console.log('onTableClick');
+  }
+
   render() {
     const {provider, open, handleDialogCancel, handleDialogAccept} = this.props;
 
@@ -100,18 +105,47 @@ class TableConfigurationDialog extends Component {
       {checkShifts(w)}
     </div>);
 
+    const tables = [
+      {
+        Name: 10,
+        Provider: 'Juan',
+        Locked: false,
+      },
+      {
+        Name: 11,
+        Provider: 'Esteban',
+        Locked: true,
+      },
+      {
+        Name: 12,
+        Provider: 'Juan',
+        Locked: false,
+      },
+      {
+        Name: 13,
+        Provider: 'Juan',
+        Locked: false,
+      },
+    ];
 
+    
     //this.state = {...checkWeekDays};
 
     return (<Dialog className='table-configuration-dialog'
-      title="Asignación del mozo a turnos y mesas"
-      actions={actions}
-      modal={true}
-      open={open}
+        title="Asignación del mozo a turnos y mesas"
+        actions={actions}
+        modal={true}
+        open={open}
+        autoScrollBodyContent
       >
       <h2>{provider ? provider.Name : ''}</h2>
       <hr />
-      {checkWeekDays}
+      <div className="col-md-6">
+         {checkWeekDays}
+      </div>
+      <div className="col-md-6">
+        <TableWaiterAssign tables={tables} onTableClick={this.onTableClick} />
+      </div>
     </Dialog>);
 
   }
