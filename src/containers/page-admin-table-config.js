@@ -27,7 +27,7 @@ class PageAdminTableConfig extends Component {
 			let uniqueShiftHours = psd.reduce((reduceValue, value, index, array) => {
 				return (reduceValue.includes(value.ShiftHourID) ? reduceValue : [...reduceValue, value.ShiftHourID]);
 			}, []);
-
+			// Todos los turnos por provider
 			let allShifts = uniqueShiftHours.reduce((previousValue, currentValue, index, array) => {
 				let sh = tenantData.getShiftHour(currentValue);
 
@@ -37,7 +37,7 @@ class PageAdminTableConfig extends Component {
 			let uniqueSites = psd.reduce((reduce, provSiteDef, index, arr) => {
 				return (reduce.includes(provSiteDef.SiteID) ? reduce : [...reduce, provSiteDef.SiteID]);
 			}, []);
-
+			// Todos los sites por provider
 			let allSites = uniqueSites.reduce((reduce, value, index, arr) => {
 				let site = tenantData.getSite(value);
 				return (index === 0 ? site.Name : `${reduce}, ${site.Name}`);
@@ -46,7 +46,7 @@ class PageAdminTableConfig extends Component {
 			let uniqueWeekDays = psd.reduce((reduce, psd, index, arr) => {
 				return (reduce.includes(psd.WeekDay) ? reduce : [...reduce, psd.WeekDay]);
 			}, []);
-
+			// Todos los turnos por provider
 			let allDays = uniqueWeekDays.reduce((reduce, day, index, arr) => {
 				let dayName = weekDays(day);
 				return (index === 0 ? dayName : `${reduce}, ${dayName}`);
@@ -58,7 +58,7 @@ class PageAdminTableConfig extends Component {
 		let tableDataGrid = {
             itemname: 'status',
             type: 'master',
-            actions: ['add-top', 'search', ],
+            actions: [],
             collist: ['MOZO', 'DÍAS', 'TURNO', 'MESAS'],
             coltypes: ['txt', 'txt', 'txt', 'txt', 'actions'],
             rowlist: rowList
@@ -74,7 +74,6 @@ class PageAdminTableConfig extends Component {
 
 	handleDialogClose() {
 		this.setState({open: false});
-		debugger;
 	}
 
 	handleDialogAccept() {
@@ -85,14 +84,15 @@ class PageAdminTableConfig extends Component {
 		let configData = this.createConfigData(this.props.tenantData);
 		let {provider, open} = this.state;
 
+		const providerSiteDefinitions = this.state.provider ? 
+			this.props.tenantData.getProviderSiteDefinitions(this.state.provider.ID) : null;
+
 		return (
 			<div className="main-area table-configuration">
 				<Reference />
 				<div className="table-container">
 					<p className="title">CONFIGURACIÓN DE MESAS</p>
 					<List 
-						withAddItem={true} 
-						withSearch={true} 
 						data={configData} 
 						onRowClick={this.onListRowClick.bind(this)} />
 				</div>
@@ -100,6 +100,8 @@ class PageAdminTableConfig extends Component {
 					<TableConfigurationDialog 
 						provider={provider} 
 						open={open} 
+						providerSiteDefinitions={providerSiteDefinitions}
+						shifts={this.props.tenantData.ShiftHours}
 						handleDialogCancel={this.handleDialogClose.bind(this)} 
 						handleDialogAccept={this.handleDialogAccept.bind(this)} /> : '')}			
 			</div>			

@@ -5,65 +5,54 @@ import CheckBox from 'material-ui/CheckBox'
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import TableWaiterAssign from './table-waiter-assign';
+import { weekDays as getWeekDays } from './../utils/weekDays';
 
 class TableConfigurationDialog extends Component {
 
   constructor(props) {
     super(props);
+    this.updateProps(props);
+  }
 
-    const shifts = ['Mañana', 'Tarde', 'Noche'];
+  componentWillReceiveProps(nextProps) {
+    this.updateProps(nextProps);
+  }
 
-    const weekDays = [{
-      day: 'Lunes',
-      checked: false,
-      shifts: []
-    },
-    {
-      day: 'Martes',
-      checked: false,
-      shifts: []
-    },
-    {
-      day: 'Miércoles',
-      checked: false,
-      shifts: []
-    },
-    {
-      day: 'Jueves',
-      checked: false,
-      shifts: []
-    },
-    {
-      day: 'Viernes',
-      checked: false,
-      shifts: []
-    },
-    {
-      day: 'Sábado',
-      checked: false,
-      shifts: []
-    },
-    {
-      day: 'Domingo',
-      checked: false,
-      shifts: []
-    }
-    ];
+  updateProps = (props) => {
+    const { providerSiteDefinitions, shifts } = props;
 
+    const weekDays = [0, 1, 2, 3, 4, 5, 6].map(d => ({
+      day: getWeekDays(d, true),
+      checked: providerSiteDefinitions.some(psd => psd.WeekDay === d),
+      shifts: shifts.map(s => ({
+        name: s.ShiftName,
+        checked: providerSiteDefinitions.some(psd => (psd.WeekDay === d && psd.ShiftHourID === s.ID))
+      })),
+    })
+    );
     this.state = { shifts, weekDays };
   }
 
-  handleOnCheck(obj, isChecked) {
+  handleOnCheckWeek(obj, isChecked) {
     let newState = { ...obj, checked: isChecked.target.checked };
     debugger;
     const weekDays = this.state.weekDays.map(w => (w.day === newState.day) ? newState : w);
     this.setState({ weekDays });
-    //this.setState({weekDays: [...this.state.weekDays, obj] });
+  }
+
+  handleOnCheckShift = (weekDay, shift, isChecked) => {
+    debugger;
+    const newShift = { ...shift, checked: isChecked };
+    const shifts = weekDay.shifts.map(s => (s.name === shift.name) ? newShift : s);
+    const newWeekDay = { ...weekDay, shifts };
+    const weekDays = this.state.weekDays.map(w => (w.day === newWeekDay.day) ? newWeekDay : w);
+    this.setState({ weekDays });
   }
 
   onTableClick = () => {
     console.log('onTableClick');
   }
+
 
   render() {
     const {provider, open, handleDialogCancel, handleDialogAccept} = this.props;
@@ -71,27 +60,32 @@ class TableConfigurationDialog extends Component {
     const actions = [
       <FlatButton
         label="Cancelar"
-        primary={true}
+        primary
         onTouchTap={handleDialogCancel}
         />,
       <FlatButton
         label="Aceptar"
-        primary={true}
-        disabled={true}
+        primary
+        disabled={false}
         onTouchTap={handleDialogAccept}
         />,
     ];
 
     const {weekDays, shifts} = this.state;
 
-    const checkShift = (shift) => (<div className='shift-container'>
-      <CheckBox className='' label={shift} />
-      <p>Mesas atendidas: No asignado</p>
-      <FlatButton label='Asignar' />
-    </div>);
+    const checkShift = (shift, wd) => (
+      <div className='shift-container'>
+        <CheckBox
+          className=''
+          label={shift.name}
+          checked={shift.checked}
+          onCheck={(obj, isChecked) => this.handleOnCheckShift(wd, shift, isChecked)} />
+        <p>Mesas atendidas: No asignado</p>
+        <FlatButton label='Asignar' />
+      </div>);
 
     const checkShifts = (wd) => (<div className='shift-checks'>
-      {(wd.checked ? shifts.map(s => checkShift(s)) : '')}
+      {(wd.checked ? wd.shifts.map(s => checkShift(s, wd)) : '')}
     </div>
     );
 
@@ -100,7 +94,7 @@ class TableConfigurationDialog extends Component {
         key={w.day}
         label={w.day}
         checked={w.checked}
-        onCheck={this.handleOnCheck.bind(this, w)}
+        onCheck={this.handleOnCheckWeek.bind(this, w)}
         />
       {checkShifts(w)}
     </div>);
@@ -128,20 +122,17 @@ class TableConfigurationDialog extends Component {
       },
     ];
 
-    
-    //this.state = {...checkWeekDays};
-
     return (<Dialog className='table-configuration-dialog'
-        title="Asignación del mozo a turnos y mesas"
-        actions={actions}
-        modal={true}
-        open={open}
-        autoScrollBodyContent
+      title="Asignación del mozo a turnos y mesas"
+      actions={actions}
+      modal={true}
+      open={open}
+      autoScrollBodyContent
       >
       <h2>{provider ? provider.Name : ''}</h2>
       <hr />
       <div className="col-md-6">
-         {checkWeekDays}
+        {checkWeekDays}
       </div>
       <div className="col-md-6">
         <TableWaiterAssign tables={tables} onTableClick={this.onTableClick} />
@@ -156,6 +147,8 @@ export default TableConfigurationDialog;
 TableConfigurationDialog.propTypes = {
   provider: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
+  shifts: PropTypes.array.isRequired,
+  providerSiteDefinitions: PropTypes.array.isRequired,
   handleDialogCancel: PropTypes.func.isRequired,
   handleDialogAccept: PropTypes.func
 };

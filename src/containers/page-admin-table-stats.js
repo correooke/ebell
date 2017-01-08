@@ -7,7 +7,7 @@ class PageAdminTableStats extends Component {
 		return (
 			<div className="main-area">
 				<Reference />
-				Estadisticas
+				<h1>Estadísticas</h1>
 			</div>
 		);
 	}

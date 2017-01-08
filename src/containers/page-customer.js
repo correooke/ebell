@@ -41,7 +41,6 @@ class PageCustomer extends Component {
 	}
 
 	onEventClick(Site, EventType) {
-		debugger;
 		if (Site) {
 			this.props.onEventMessage(Site.SiteID, EventType);	
 		}
