@@ -30,7 +30,7 @@ class TableWaiterAssign extends Component {
 
     return (
       <div className="table-waiter-assign">
-        <h3>Asignación a mesas.</h3>
+        <h3>Asignación a mesas</h3>
         <List>
           {this.getTables(tables, onTableClick)}
         </List>

@@ -44,7 +44,7 @@ class TableStatus extends Component {
 						<i className="fa fa-circle none" /><p>Sin pedido</p>
 					</Reference>
 					<div className="table-container">
-						<p className="title">MESAS ACTIVAS</p>
+						<p className="title">MESAS ACTIVAS!</p>
 						<List data={tableData} />
 					</div>
 				</div>
